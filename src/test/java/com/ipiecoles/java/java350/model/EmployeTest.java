@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.time.LocalDate;
+
 class EmployeTest {
     Employe employe = new Employe();
 
@@ -58,5 +60,19 @@ class EmployeTest {
         employe.augmenterSalaire(-50);
 
         Assertions.assertThat(employe.getSalaire()).isNull();
+    }
+
+    @ParameterizedTest(name = "Le {0} et pour un temps de travail de {1} jour(s), le nombre de RTT est de: {2}")
+    @CsvSource({
+            "2019-01-01, 0.5, 5",
+            "2021-01-01, 1.0, 10",
+            "2022-01-01, 1.5, 17",
+            "2032-01-01, 2.0, 20",
+    })
+    void testNbRTT(LocalDate dateAnnee, Double tempsPartiel, Integer result) {
+        employe.setTempsPartiel(tempsPartiel);
+        Integer nbRtt = employe.getNbRtt(dateAnnee);
+
+        Assertions.assertThat(nbRtt).isEqualTo(result);
     }
 }
