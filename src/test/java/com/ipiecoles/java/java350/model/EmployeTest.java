@@ -68,6 +68,8 @@ class EmployeTest {
             "2021-01-01, 1.0, 10",
             "2022-01-01, 1.5, 17",
             "2032-01-01, 2.0, 20",
+            "2022-01-30, 2.0, 20",
+            "2022-01-31, 2.0, 20",
     })
     void testNbRTT(LocalDate dateAnnee, Double tempsPartiel, Integer result) {
         employe.setTempsPartiel(tempsPartiel);
