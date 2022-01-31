@@ -45,7 +45,7 @@ public class Employe {
 
     /**
      * Méthode calculant le nombre d'années d'ancienneté à partir de la date d'embauche
-     * @return
+     * @return int
      */
     public Integer getNombreAnneeAnciennete() {
         return LocalDate.now().getYear() - dateEmbauche.getYear();
@@ -89,8 +89,8 @@ case SATURDAY:var = var + 1;
     //Matricule, performance, date d'embauche, temps partiel, prime
     public Double getPrimeAnnuelle(){
         //Calcule de la prime d'ancienneté
-        Double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
-        Double prime;
+        double primeAnciennete = Entreprise.PRIME_ANCIENNETE * this.getNombreAnneeAnciennete();
+        double prime;
         //Prime du manager (matricule commençant par M) : Prime annuelle de base multipliée par l'indice prime manager
         //plus la prime d'anciennté.
         if(matricule != null && matricule.startsWith("M")) {
@@ -110,7 +110,18 @@ case SATURDAY:var = var + 1;
     }
 
     //Augmenter salaire
-    //public void augmenterSalaire(double pourcentage){}
+
+    /**
+     * Je pense que j'aurais eu une réflexion différente mais je ne saurais pas dire si je l'aurais écrit comme tel si j'avais écrit les tests dans un second temps
+     * @param pourcentage Ceci un pourcentage pour la fonction d'augmentation du salaire
+     */
+    public void augmenterSalaire(double pourcentage){
+        if(this.salaire != null && this.salaire >= 0) {
+            this.salaire *= (pourcentage+100)/100;
+        } else {
+            this.salaire = null;
+        }
+    }
 
     public Long getId() {
         return id;
