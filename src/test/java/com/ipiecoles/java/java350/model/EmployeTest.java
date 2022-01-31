@@ -77,4 +77,12 @@ class EmployeTest {
 
         Assertions.assertThat(nbRtt).isEqualTo(result);
     }
+
+    @Test
+    void testNbRTTWithoutDate() {
+        employe.setTempsPartiel(1.0);
+        Integer nbRtt = employe.getNbRtt();
+
+        Assertions.assertThat(nbRtt).isEqualTo(11);
+    }
 }
