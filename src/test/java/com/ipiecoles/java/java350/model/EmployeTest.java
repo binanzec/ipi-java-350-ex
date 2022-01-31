@@ -80,9 +80,30 @@ class EmployeTest {
 
     @Test
     void testNbRTTWithoutDate() {
-        employe.setTempsPartiel(1.0);
+        employe.setTempsPartiel(1d);
         Integer nbRtt = employe.getNbRtt();
 
         Assertions.assertThat(nbRtt).isEqualTo(11);
+    }
+
+    @Test
+    void testEmployeConstructor() {
+        String nom = "Bob";
+        String prenom = "John";
+        String matricule = "C1234";
+        LocalDate dateEmbauche = LocalDate.of(2022,1,1);
+        Double salaire = 1500d;
+        int performance = 5;
+        Double tempsPartiel = 1d;
+
+        Employe employe = new Employe(nom, prenom, matricule, dateEmbauche, salaire, performance, tempsPartiel);
+
+        Assertions.assertThat(employe.getNom()).isEqualTo("Bob");
+        Assertions.assertThat(employe.getPrenom()).isEqualTo("John");
+        Assertions.assertThat(employe.getMatricule()).isEqualTo("C1234");
+        Assertions.assertThat(employe.getDateEmbauche()).isEqualTo("2022-01-01");
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(1500d);
+        Assertions.assertThat(employe.getPerformance()).isEqualTo(5);
+        Assertions.assertThat(employe.getTempsPartiel()).isEqualTo(1d);
     }
 }
