@@ -2,40 +2,30 @@ package com.ipiecoles.java.java350.model;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-public class EmployeTest {
+class EmployeTest {
     Employe employe = new Employe();
 
-    @Test
-    void testAugmenterSalaire() {
-        employe.setSalaire(1000d);
-        employe.augmenterSalaire(50);
+    /**
+     * Utilisation de test paramétré pour le code smell
+     * @param salaire Salaire
+     * @param pourcentage Pourcentage
+     * @param salaireAttendu Salaire attendu après le calcul de l'augmentation
+     */
+    @ParameterizedTest
+    @CsvSource({
+            "1000.0, 50, 1500.0",
+            "1000.0, -50, 500.0",
+            "1000.0, 0, 1000.0",
+            "1000.0, 0, 1000.0"
+    })
+    void testAugmenterSalaire(Double salaire, Double pourcentage, Double salaireAttendu) {
+        employe.setSalaire(salaire);
+        employe.augmenterSalaire(pourcentage);
 
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(1500d);
-    }
-
-    @Test
-    void testReduireSalaire() {
-        employe.setSalaire(1000d);
-        employe.augmenterSalaire(-50);
-
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(500d);
-    }
-
-    @Test
-    void testAugmenterSalaireWhenPourcentageIsNull() {
-        employe.setSalaire(1000d);
-        employe.augmenterSalaire(0);
-
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(1000d);
-    }
-
-    @Test
-    void testReduireSalaireWhenPourcentageIsNull() {
-        employe.setSalaire(1000d);
-        employe.augmenterSalaire(0);
-
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(1000d);
+        Assertions.assertThat(employe.getSalaire()).isEqualTo(salaireAttendu);
     }
 
     @Test
@@ -43,7 +33,7 @@ public class EmployeTest {
         employe.setSalaire(null);
         employe.augmenterSalaire(50);
 
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(null);
+        Assertions.assertThat(employe.getSalaire()).isNull();
     }
 
     @Test
@@ -51,7 +41,7 @@ public class EmployeTest {
         employe.setSalaire(null);
         employe.augmenterSalaire(50);
 
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(null);
+        Assertions.assertThat(employe.getSalaire()).isNull();
     }
 
     @Test
@@ -59,7 +49,7 @@ public class EmployeTest {
         employe.setSalaire(-1000d);
         employe.augmenterSalaire(50);
 
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(null);
+        Assertions.assertThat(employe.getSalaire()).isNull();
     }
 
     @Test
@@ -67,6 +57,6 @@ public class EmployeTest {
         employe.setSalaire(-1000d);
         employe.augmenterSalaire(-50);
 
-        Assertions.assertThat(employe.getSalaire()).isEqualTo(null);
+        Assertions.assertThat(employe.getSalaire()).isNull();
     }
 }
